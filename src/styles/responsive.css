@@ -1,0 +1,23 @@
+/* Extra small devices */
+@media (max-width: 320px) {
+    .hero-text {
+      font-size: 16vw;
+    }
+    
+    .photo-stack,
+    .photo-slider {
+      width: 160px;
+      height: 220px;
+    }
+  }
+  
+  /* Large devices */
+  @media (min-width: 1920px) {
+    .navbar {
+      padding: 24px 120px;
+    }
+    
+    .hero {
+      padding: 120px 120px 60px;
+    }
+  }

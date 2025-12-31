@@ -1,0 +1,44 @@
+@keyframes float {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1); 
+  }
+  33% { 
+    transform: translate(30px, -50px) scale(1.1); 
+  }
+  66% { 
+    transform: translate(-20px, 30px) scale(0.9); 
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+@keyframes shine {
+  0% { 
+    transform: translateX(-100%) translateY(-100%); 
+  }
+  100% { 
+    transform: translateX(100%) translateY(100%); 
+  }
+}
+
+@keyframes float-badge {
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(-8px); 
+  }
+}
+
+@keyframes fillBar {
+  from { 
+    width: 0; 
+  }
+}
