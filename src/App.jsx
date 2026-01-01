@@ -9,10 +9,12 @@ import "./styles/navbar.css";
 import "./styles/hero.css";
 import "./styles/expertise.css";
 import "./styles/responsive.css";
-
+import CustomCursor from "./components/CustomCursor";
+// import CustomCursor from "./components/CustomCursor";
 function App() {
   return (
     <DarkModeProvider>
+      <CustomCursor/>
       <AnimatedBackground />
       <Navbar />
       <Hero />

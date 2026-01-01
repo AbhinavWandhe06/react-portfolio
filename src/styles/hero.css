@@ -423,3 +423,55 @@ body.dark-mode .info-card {
     height: 280px;
   }
 }
+
+.code-pet {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.pet-ascii {
+  font-family: monospace;
+  font-size: 12px;
+  color: #22c55e;
+  animation: floatPet 2.5s ease-in-out infinite;
+}
+
+.pet-status {
+  font-size: 13px;
+  color: #a5b4fc;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.dots::after {
+  content: "";
+  animation: dots 1.6s infinite;
+}
+
+@keyframes dots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}
+
+@keyframes floatPet {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: #4f46e5;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

@@ -1,0 +1,89 @@
+/* ===================== */
+/* BASE */
+/* ===================== */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 9999;
+}
+
+/* ===================== */
+/* DOT */
+/* ===================== */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  animation: blink 1.8s ease-in-out infinite;
+}
+
+/* Light mode – dark dot */
+.cursor-dot.light {
+  background: #111827;
+  box-shadow:
+    0 0 6px rgba(17,24,39,0.8),
+    0 0 12px rgba(17,24,39,0.5);
+}
+
+/* Dark mode – white dot */
+.cursor-dot.dark {
+  background: #ffffff;
+  box-shadow:
+    0 0 8px rgba(255,255,255,0.9),
+    0 0 18px rgba(255,255,255,0.6);
+}
+
+/* ===================== */
+/* RING */
+/* ===================== */
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Light mode ring */
+.cursor-ring.light {
+  border: 1.5px solid rgba(17,24,39,0.7);
+  box-shadow:
+    0 0 16px rgba(17,24,39,0.35);
+}
+
+/* Dark mode ring */
+.cursor-ring.dark {
+  border: 1.5px solid rgba(255,255,255,0.7);
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.45);
+}
+
+/* ===================== */
+/* HOVER (STILL CIRCLE) */
+/* ===================== */
+.cursor-dot.hover {
+  transform: translate(-50%, -50%) scale(1.8);
+}
+
+.cursor-ring.hover {
+  width: 46px;
+  height: 46px;
+}
+
+/* ===================== */
+/* VERY SUBTLE PULSE */
+/* ===================== */
+@keyframes blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@media (max-width: 768px) {
+    .cursor-dot,
+    .cursor-ring {
+      display: none;
+    }
+  }
+  

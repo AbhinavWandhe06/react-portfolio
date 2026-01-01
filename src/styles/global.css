@@ -85,4 +85,6 @@ body {
     position: relative;
     height: 200vh; /* gives scroll space */
   }
-  
+  * {
+    cursor: none;
+  }
