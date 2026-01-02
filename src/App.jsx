@@ -10,7 +10,7 @@ import "./styles/hero.css";
 import "./styles/expertise.css";
 import "./styles/responsive.css";
 import CustomCursor from "./components/CustomCursor";
-// import CustomCursor from "./components/CustomCursor";
+import ThingsICanDo from "./components/ThingsICanDo";
 function App() {
   return (
     <DarkModeProvider>
@@ -18,6 +18,8 @@ function App() {
       <AnimatedBackground />
       <Navbar />
       <Hero />
+      <Expertise />
+      <ThingsICanDo/>
       <Expertise />
     </DarkModeProvider>
   );

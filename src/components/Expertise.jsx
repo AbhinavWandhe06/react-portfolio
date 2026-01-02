@@ -1,20 +1,43 @@
 import { Code2, Layers, Database, BarChart3, Sparkles } from "lucide-react";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { DarkModeContext } from "../context/DarkModeContext";
 import Lottie from "lottie-react";
 import codingPet from "/public/lottie/Developer.json";
+import ph1 from "../images/cardBg1.png";
+/* Added Framer Motion for High-End 3D Parallax */
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 const Expertise = () => {
   const { isDark } = useContext(DarkModeContext);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
+  /* ============================= */
+  /* CRAZY SCROLL PARALLAX LOGIC   */
+  /* ============================= */
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Create smooth physics for the scroll
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+  // Map scroll progress to crazy transformations
+  const headerX = useTransform(smoothProgress, [0, 1], [-100, 100]);
+  const headerRotate = useTransform(smoothProgress, [0, 1], [-5, 5]);
+  const codeWindowY = useTransform(smoothProgress, [0, 1], [150, -150]);
+  const codeWindowRotate = useTransform(smoothProgress, [0, 0.5, 1], [-2, 0, 2]);
+  const cardsScale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+
+  /* MOUSE GLOW (RETAINED) */
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const cards = [
@@ -23,9 +46,9 @@ const Expertise = () => {
       title: "Programming & Languages",
       desc: "Efficient, scalable, and maintainable software solutions.",
       items: ["C++, C#, Python", "JavaScript (ES6+)", "SQL & Data Structures"],
-      bg: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=80",
+      bg: ph1,
       gradient: "from-blue-500 to-cyan-500",
-      glow: "rgba(59, 130, 246, 0.4)"
+      glow: "rgba(59, 130, 246, 0.4)",
     },
     {
       icon: Layers,
@@ -34,7 +57,7 @@ const Expertise = () => {
       items: ["React.js & Node.js", "ASP.NET Core", "Entity Framework Core"],
       bg: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80",
       gradient: "from-purple-500 to-pink-500",
-      glow: "rgba(168, 85, 247, 0.4)"
+      glow: "rgba(168, 85, 247, 0.4)",
     },
     {
       icon: Database,
@@ -43,7 +66,7 @@ const Expertise = () => {
       items: ["PostgreSQL, MySQL", "SQL Server (SSMS)", "OracleDB"],
       bg: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80",
       gradient: "from-emerald-500 to-teal-500",
-      glow: "rgba(16, 185, 129, 0.4)"
+      glow: "rgba(160, 185, 129, 0.4)",
     },
     {
       icon: BarChart3,
@@ -52,35 +75,40 @@ const Expertise = () => {
       items: ["PowerBI Dashboards", "KPI Monitoring", "Business Intelligence"],
       bg: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
       gradient: "from-orange-500 to-red-500",
-      glow: "rgba(249, 115, 22, 0.4)"
-    }
+      glow: "rgba(249, 115, 22, 0.4)",
+    },
   ];
 
   return (
-    <section className={`expertise-section ${isDark ? 'dark' : 'light'}`}>
-      {/* Enhanced Mouse Glow Effect */}
+    <section
+      ref={sectionRef}
+      className={`expertise-section ${isDark ? "dark" : "light"}`}
+      style={{ perspective: "2000px" }} // Critical for 3D visibility
+    >
+      {/* Mouse Glow */}
       <div
         className="mouse-glow"
-        style={{
-          left: mousePos.x,
-          top: mousePos.y
-        }}
+        style={{ left: mousePos.x, top: mousePos.y }}
       />
 
-      {/* Animated Background Shapes */}
+      {/* Background Shapes */}
       <div className="animated-bg-shapes">
         <div className="bg-shape shape-1"></div>
         <div className="bg-shape shape-2"></div>
         <div className="bg-shape shape-3"></div>
       </div>
 
-      <div className="expertise-grid">
-        {/* HEADER (LEFT TOP) */}
-        <div className="expertise-header">
+      <div className="expertise-grid" style={{ transformStyle: "preserve-3d" }}>
+        {/* HEADER - With Crazy Parallax */}
+        <motion.div
+          className="expertise-header"
+          style={{ x: headerX, rotateX: headerRotate, z: 50 }}
+        >
           <div className="tag-wrapper">
             <Sparkles size={14} className="sparkle-icon" />
             <span className="expertise-tag">EXPERTISE</span>
           </div>
+
           <h2 className="gradient-title">
             Engineering Scalable Digital Experiences
           </h2>
@@ -88,10 +116,13 @@ const Expertise = () => {
             Combining strong technical foundations with modern frameworks and
             data-driven insights to build impactful solutions.
           </p>
-        </div>
+        </motion.div>
 
-        {/* CODE PANEL (RIGHT – FULL HEIGHT) */}
-        <div className="code-window">
+        {/* CODE PANEL - Opposite Vertical Parallax */}
+        <motion.div
+          className="code-window"
+          style={{ y: codeWindowY, rotateY: codeWindowRotate, transformStyle: "preserve-3d" }}
+        >
           <div className="code-header">
             <div className="dots-group">
               <span className="dot red" />
@@ -108,7 +139,6 @@ const Expertise = () => {
             </div>
           </div>
 
-          {/* Code Content with Lottie */}
           <div className="code-content-wrapper lottie-anchor">
             <div className="line-numbers">
               {[...Array(21)].map((_, i) => (
@@ -141,7 +171,6 @@ const Expertise = () => {
               {'\n'}<span className="keyword">export default</span> developer;
             </pre>
 
-            {/* Lottie Animation - Fixed Position */}
             <div className="code-pet fixed">
               <div className="pet-lottie">
                 <Lottie 
@@ -159,25 +188,41 @@ const Expertise = () => {
           <div className="code-footer">
             <div className="cursor-blink"></div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* CARDS (LEFT BOTTOM) */}
-        <div className="expertise-cards">
+        {/* CARDS CONTAINER */}
+        <motion.div 
+            className="expertise-cards"
+            style={{ scale: cardsScale, transformStyle: "preserve-3d" }}
+        >
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const isHovered = hoveredCard === idx;
             
             return (
-              <div
+              <motion.div
                 key={idx}
                 className={`expertise-card ${isHovered ? 'hovered' : ''}`}
-                style={{ backgroundImage: `url(${card.bg})` }}
+                style={{ 
+                  backgroundImage: `url(${card.bg})`,
+                  transformStyle: "preserve-3d"
+                }}
+                /* Magnetic 3D Lift */
+                whileHover={{ 
+                  rotateX: 10, 
+                  rotateY: -10, 
+                  z: 80,
+                  transition: { duration: 0.3 } 
+                }}
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+
                 onMouseEnter={() => setHoveredCard(idx)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 <div className="overlay" />
                 
-                {/* Dynamic Glow Effect */}
                 {isHovered && (
                   <div 
                     className="card-glow-effect"
@@ -187,25 +232,22 @@ const Expertise = () => {
                   />
                 )}
 
-                {/* Animated Border */}
                 <div className={`card-border bg-gradient-to-br ${card.gradient}`}></div>
 
-                {/* Card Content */}
-                <div className="content">
-                  <div className="icon-wrapper">
+                {/* Internal elements now have translateZ to float */}
+                <div className="content" style={{ transform: "translateZ(60px)" }}>
+                  <div className="icon-wrapper" style={{ transform: "translateZ(40px)" }}>
                     <div className={`icon-bg bg-gradient-to-br ${card.gradient}`}>
                       <Icon size={32} strokeWidth={2.5} />
                     </div>
                     <div className={`icon-pulse bg-gradient-to-br ${card.gradient}`}></div>
                   </div>
 
-                  <h3 className="card-title">{card.title}</h3>
-                  <p className="card-desc">{card.desc}</p>
-
+                  <h3 className="card-title" style={{ transform: "translateZ(30px)" }}>{card.title}</h3>
+                  <p className="card-desc" style={{ transform: "translateZ(20px)" }}>{card.desc}</p>
                   <div className="card-divider"></div>
 
-                  {/* Technologies List */}
-                  <ul className="card-list">
+                  <ul className="card-list" style={{ transform: "translateZ(25px)" }}>
                     {card.items.map((item, i) => (
                       <li key={i} className="card-item">
                         <span className="item-bullet" />
@@ -215,10 +257,8 @@ const Expertise = () => {
                   </ul>
                 </div>
 
-                {/* Shine Effect on Hover */}
                 <div className="shine-effect"></div>
 
-                {/* Floating Particles */}
                 {isHovered && (
                   <div className="particle-container">
                     {[...Array(10)].map((_, i) => (
@@ -235,10 +275,10 @@ const Expertise = () => {
                     ))}
                   </div>
                 )}
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
