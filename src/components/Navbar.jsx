@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
+import resumeFile from "../images/AbhinavWandhe_Res_HY.pdf";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -32,13 +33,16 @@ const Navbar = () => {
       className={`navbar ${scrolled ? "scrolled" : ""} ${visible ? "visible" : "hidden"}`}
     >
       <div className="logo">
-        <span className="logo-highlight">ABHINAV</span> Wandhe
+        <a href="#" className="logo-link">
+          <span className="logo-highlight">ABHINAV</span> Wandhe
+        </a>
       </div>
 
       <ul className={`nav-links ${open ? "show" : ""}`}>
-        <li><span className="link-number">01.</span> Expertise</li>
-        <li><span className="link-number">02.</span> Projects</li>
-        <li><span className="link-number">03.</span> Experience</li>
+        <li><a href="#expertise"><span className="link-number">01.</span> Expertise</a></li>
+        <li><a href="#projects"><span className="link-number">02.</span> Projects</a></li>
+        <li><a href="#experience"><span className="link-number">03.</span> Experience</a></li>
+        <li><a href="#contact"><span className="link-number">04.</span> Contact</a></li>
       </ul>
 
       <div className="nav-actions">
@@ -49,10 +53,10 @@ const Navbar = () => {
         >
           <span className="toggle-icon">{isDark ? "☀️" : "🌙"}</span>
         </button>
-        <button className="nav-btn">
-          <span>CONTACT</span>
+        <a href={resumeFile} download="AbhinavWandhe_Resume.pdf" className="nav-btn resume-btn" aria-label="Download Resume">
+          <span>RESUME</span>
           <div className="btn-shine"></div>
-        </button>
+        </a>
       </div>
 
       <div className="menu-icon" onClick={() => setOpen(!open)}>

@@ -4,41 +4,48 @@ import { DarkModeContext } from "../context/DarkModeContext";
 import Lottie from "lottie-react";
 import codingPet from "/public/lottie/Developer.json";
 import ph1 from "../images/cardBg1.png";
-/* Added Framer Motion for High-End 3D Parallax */
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 const Expertise = () => {
   const { isDark } = useContext(DarkModeContext);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
-  /* ============================= */
-  /* CRAZY SCROLL PARALLAX LOGIC   */
-  /* ============================= */
+  /* DETECT MOBILE */
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  /* SCROLL PARALLAX LOGIC */
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  // Create smooth physics for the scroll
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // Map scroll progress to crazy transformations
-  const headerX = useTransform(smoothProgress, [0, 1], [-100, 100]);
-  const headerRotate = useTransform(smoothProgress, [0, 1], [-5, 5]);
-  const codeWindowY = useTransform(smoothProgress, [0, 1], [150, -150]);
-  const codeWindowRotate = useTransform(smoothProgress, [0, 0.5, 1], [-2, 0, 2]);
-  const cardsScale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+  // Disable parallax on mobile
+  const headerX = useTransform(smoothProgress, [0, 1], isMobile ? [0, 0] : [-100, 100]);
+  const headerSkew = useTransform(smoothProgress, [0, 1], isMobile ? [0, 0] : [-2, 2]);
+  const codeWindowY = useTransform(smoothProgress, [0, 1], isMobile ? [0, 0] : [150, -150]);
+  const codeWindowRotate = useTransform(smoothProgress, [0, 0.5, 1], isMobile ? [0, 0, 0] : [-1, 0, 1]);
+  const cardsRotate = useTransform(smoothProgress, [0, 1], isMobile ? [0, 0] : [-3, 3]);
 
-  /* MOUSE GLOW (RETAINED) */
+  /* MOUSE GLOW */
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      if (!isMobile) {
+        setMousePos({ x: e.clientX, y: e.clientY });
+      }
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
   const cards = [
     {
@@ -82,14 +89,15 @@ const Expertise = () => {
   return (
     <section
       ref={sectionRef}
-      className={`expertise-section ${isDark ? "dark" : "light"}`}
-      style={{ perspective: "2000px" }} // Critical for 3D visibility
+      className={`expertise-section ${isDark ? "dark" : "light"} ${isMobile ? "mobile" : ""}`}
     >
       {/* Mouse Glow */}
-      <div
-        className="mouse-glow"
-        style={{ left: mousePos.x, top: mousePos.y }}
-      />
+      {!isMobile && (
+        <div
+          className="mouse-glow"
+          style={{ left: mousePos.x, top: mousePos.y }}
+        />
+      )}
 
       {/* Background Shapes */}
       <div className="animated-bg-shapes">
@@ -98,11 +106,11 @@ const Expertise = () => {
         <div className="bg-shape shape-3"></div>
       </div>
 
-      <div className="expertise-grid" style={{ transformStyle: "preserve-3d" }}>
-        {/* HEADER - With Crazy Parallax */}
+      <div className="expertise-grid">
+        {/* HEADER - With Parallax X and Skew */}
         <motion.div
           className="expertise-header"
-          style={{ x: headerX, rotateX: headerRotate, z: 50 }}
+          style={isMobile ? {} : { x: headerX, skewX: headerSkew }}
         >
           <div className="tag-wrapper">
             <Sparkles size={14} className="sparkle-icon" />
@@ -118,10 +126,10 @@ const Expertise = () => {
           </p>
         </motion.div>
 
-        {/* CODE PANEL - Opposite Vertical Parallax */}
+        {/* CODE PANEL - With Floating Y and Rotation */}
         <motion.div
           className="code-window"
-          style={{ y: codeWindowY, rotateY: codeWindowRotate, transformStyle: "preserve-3d" }}
+          style={isMobile ? {} : { y: codeWindowY, rotateZ: codeWindowRotate }}
         >
           <div className="code-header">
             <div className="dots-group">
@@ -190,10 +198,10 @@ const Expertise = () => {
           </div>
         </motion.div>
 
-        {/* CARDS CONTAINER */}
+        {/* CARDS CONTAINER - With Overall Parallax Tilt */}
         <motion.div 
             className="expertise-cards"
-            style={{ scale: cardsScale, transformStyle: "preserve-3d" }}
+            style={isMobile ? {} : { rotateY: cardsRotate }}
         >
           {cards.map((card, idx) => {
             const Icon = card.icon;
@@ -205,25 +213,19 @@ const Expertise = () => {
                 className={`expertise-card ${isHovered ? 'hovered' : ''}`}
                 style={{ 
                   backgroundImage: `url(${card.bg})`,
-                  transformStyle: "preserve-3d"
                 }}
-                /* Magnetic 3D Lift */
-                whileHover={{ 
-                  rotateX: 10, 
-                  rotateY: -10, 
-                  z: 80,
-                  transition: { duration: 0.3 } 
-                }}
-                initial={{ opacity: 0, y: 100 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
+                /* Simple Scroll-linked entry animation */
+                initial={{ opacity: 0, scale: isMobile ? 0.95 : 0.8, y: isMobile ? 20 : 50 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
 
-                onMouseEnter={() => setHoveredCard(idx)}
+                onMouseEnter={() => !isMobile && setHoveredCard(idx)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 <div className="overlay" />
                 
-                {isHovered && (
+                {isHovered && !isMobile && (
                   <div 
                     className="card-glow-effect"
                     style={{ 
@@ -234,20 +236,19 @@ const Expertise = () => {
 
                 <div className={`card-border bg-gradient-to-br ${card.gradient}`}></div>
 
-                {/* Internal elements now have translateZ to float */}
-                <div className="content" style={{ transform: "translateZ(60px)" }}>
-                  <div className="icon-wrapper" style={{ transform: "translateZ(40px)" }}>
+                <div className="content">
+                  <div className="icon-wrapper">
                     <div className={`icon-bg bg-gradient-to-br ${card.gradient}`}>
                       <Icon size={32} strokeWidth={2.5} />
                     </div>
                     <div className={`icon-pulse bg-gradient-to-br ${card.gradient}`}></div>
                   </div>
 
-                  <h3 className="card-title" style={{ transform: "translateZ(30px)" }}>{card.title}</h3>
-                  <p className="card-desc" style={{ transform: "translateZ(20px)" }}>{card.desc}</p>
+                  <h3 className="card-title">{card.title}</h3>
+                  <p className="card-desc">{card.desc}</p>
                   <div className="card-divider"></div>
 
-                  <ul className="card-list" style={{ transform: "translateZ(25px)" }}>
+                  <ul className="card-list">
                     {card.items.map((item, i) => (
                       <li key={i} className="card-item">
                         <span className="item-bullet" />
@@ -259,7 +260,7 @@ const Expertise = () => {
 
                 <div className="shine-effect"></div>
 
-                {isHovered && (
+                {isHovered && !isMobile && (
                   <div className="particle-container">
                     {[...Array(10)].map((_, i) => (
                       <div 

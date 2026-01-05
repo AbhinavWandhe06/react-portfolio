@@ -19,20 +19,40 @@
   animation: blink 1.8s ease-in-out infinite;
 }
 
-/* Light mode – dark dot */
+/* Light mode – coral/peach dot */
 .cursor-dot.light {
-  background: #111827;
+  background: #ff6b6b;
   box-shadow:
-    0 0 6px rgba(17,24,39,0.8),
-    0 0 12px rgba(17,24,39,0.5);
+    0 0 8px rgba(255, 107, 107, 0.8),
+    0 0 16px rgba(255, 107, 107, 0.5);
 }
 
-/* Dark mode – white dot */
+/* Dark mode – glowing light green dot */
 .cursor-dot.dark {
-  background: #ffffff;
+  background: #4ade80;
   box-shadow:
-    0 0 8px rgba(255,255,255,0.9),
-    0 0 18px rgba(255,255,255,0.6);
+    0 0 12px rgba(74, 222, 128, 1),
+    0 0 24px rgba(74, 222, 128, 0.8),
+    0 0 36px rgba(74, 222, 128, 0.5);
+  animation: greenGlow 2s ease-in-out infinite;
+}
+
+@keyframes greenGlow {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 12px rgba(74, 222, 128, 1),
+      0 0 24px rgba(74, 222, 128, 0.8),
+      0 0 36px rgba(74, 222, 128, 0.5);
+  }
+
+  50% {
+    box-shadow:
+      0 0 16px rgba(74, 222, 128, 1),
+      0 0 32px rgba(74, 222, 128, 0.9),
+      0 0 48px rgba(74, 222, 128, 0.6);
+  }
 }
 
 /* ===================== */
@@ -47,18 +67,18 @@
     box-shadow 0.25s ease;
 }
 
-/* Light mode ring */
+/* Light mode ring - coral */
 .cursor-ring.light {
-  border: 1.5px solid rgba(17,24,39,0.7);
+  border: 1.5px solid rgba(255, 107, 107, 0.7);
   box-shadow:
-    0 0 16px rgba(17,24,39,0.35);
+    0 0 16px rgba(255, 107, 107, 0.35);
 }
 
-/* Dark mode ring */
+/* Dark mode ring - light green */
 .cursor-ring.dark {
-  border: 1.5px solid rgba(255,255,255,0.7);
+  border: 1.5px solid rgba(74, 222, 128, 0.8);
   box-shadow:
-    0 0 20px rgba(255,255,255,0.45);
+    0 0 24px rgba(74, 222, 128, 0.5);
 }
 
 /* ===================== */
@@ -77,13 +97,21 @@
 /* VERY SUBTLE PULSE */
 /* ===================== */
 @keyframes blink {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-@media (max-width: 768px) {
-    .cursor-dot,
-    .cursor-ring {
-      display: none;
-    }
+
+  0%,
+  100% {
+    opacity: 0.6;
   }
-  
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}

@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+.outer-overflow {
+    overflow-x: hidden;
+    background: #020617;
+    /* Deep dark background */
+    color: #f8fafc;
+    font-family: 'Inter', sans-serif;
+}
+
+.exp-pinned-section {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+
+/* --- 1. TOP HEADING --- */
+.exp-top-heading {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.exp-top-heading h3 {
+    margin: 0;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+.heading-line {
+    width: 40px;
+    height: 1px;
+    background: #6366f1;
+    margin: 10px auto 0;
+}
+
+/* --- SLIDER LAYOUT --- */
+.exp-slider-inner {
+    display: flex;
+    flex-direction: row;
+    width: 300vw;
+    /* 3 slides */
+    height: 100%;
+}
+
+.exp-slide {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 5vw;
+}
+
+.slide-content {
+    /* Main layout container for content inside slide */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- IMAGE STYLING --- */
+/* Kept essentially in same place but enhanced */
+.image-wrapper {
+    width: 60vw;
+    height: 70vh;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.6);
+    /* Deeper shadow */
+    filter: saturate(0.9) contrast(1.1) brightness(0.9);
+    /* More cinematic default */
+    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.image-wrapper:hover {
+    filter: saturate(1.1) contrast(1.1) brightness(1.1);
+    transform: scale(1.02);
+    /* Subtle lift */
+    box-shadow: 30px 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+.slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+}
+
+.img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Subtle vignette */
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(2, 6, 23, 0.6) 100%);
+    pointer-events: none;
+}
+
+/* --- TEXT OVERLAY --- */
+.text-overlay {
+    position: absolute;
+    left: 14vw;
+    /* Slightly more offset */
+    bottom: 12vh;
+    /* Adjusted for balance */
+    z-index: 10;
+    max-width: 550px;
+    /* Glassmorphism backing for text readability */
+    padding: 30px;
+    background: rgba(2, 6, 23, 0.4);
+    backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 16px 0 0;
+    opacity: 0;
+    /* Handled by GSAP now, but good default */
+    visibility: hidden;
+}
+
+.slide-number {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 4rem;
+    /* Large and elegant */
+    color: rgba(255, 255, 255, 0.1);
+    /* Very subtle */
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    z-index: -1;
+}
+
+.job-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.company-title {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    /* Gradient text for "Stunning" look */
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.full-name {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #cbd5e1;
+    margin: 0 0 10px 0;
+    border-left: 3px solid #6366f1;
+    padding-left: 12px;
+}
+
+.role-date-loc {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #6366f1;
+    /* Accent color */
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-wrap: wrap;
+}
+
+.separator {
+    opacity: 0.5;
+    font-size: 0.8em;
+}
+
+.location {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 0 15px 0;
+    font-style: italic;
+}
+
+.points-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.points-list li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    /* Slightly lighter for readability */
+    position: relative;
+    padding-left: 0;
+    border-left: 2px solid rgba(99, 102, 241, 0.3);
+    padding-left: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.points-list li:hover {
+    border-left-color: #6366f1;
+}
+
+.points-list li::before {
+    display: none;
+    /* Removing bullet for border style */
+}
+
+/* Hide default Scrollbar */
+.outer-overflow::-webkit-scrollbar {
+    display: none;
+}
+
+.outer-overflow {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* --- 2. BOTTOM TRACKER BAR --- */
+.exp-bottom-tracker {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 50;
+}
+
+.tracker-bg {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.tracker-fill {
+    width: 0%;
+    /* JS animates this */
+    height: 100%;
+    background: #6366f1;
+    box-shadow: 0 0 10px #6366f1;
+}
+
+.tracker-text {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #475569;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .image-wrapper {
+        width: 90vw;
+        height: 50vh;
+        margin-bottom: 20vh;
+        /* Make room for text */
+    }
+
+    .text-overlay {
+        left: 5vw;
+        bottom: 12vh;
+        width: 90vw;
+    }
+
+    .company-title {
+        font-size: 2.5rem;
+    }
+
+    .points-list li {
+        font-size: 0.9rem;
+    }
+
+    .role-date-loc {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .separator {
+        display: none;
+    }
+}

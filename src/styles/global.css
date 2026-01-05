@@ -1,90 +1,99 @@
 body {
-    background: #fafafa;
-    color: #0a0a0a;
-    transition: background 0.5s ease, color 0.5s ease;
-  }
-  
-  body.dark-mode {
-    background: #050505;
-    color: #e8e8e8;
-  }
-  
-  /* Animated Background */
-  .animated-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-  }
-  
-  .gradient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    animation: float 20s infinite ease-in-out;
-  }
-  
-  body.dark-mode .gradient-orb {
-    opacity: 0.08;
-  }
-  
-  .orb-1 {
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    top: -10%;
-    left: -10%;
-    animation-delay: 0s;
-  }
-  
-  .orb-2 {
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    top: 40%;
-    right: -5%;
-    animation-delay: 7s;
-  }
-  
-  .orb-3 {
-    width: 450px;
-    height: 450px;
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    bottom: -10%;
-    left: 30%;
-    animation-delay: 14s;
-  }
-  
-  .grid-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.5;
-  }
-  
-  body.dark-mode .grid-overlay {
-    background-image: 
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  }
-  :root {
-    --nav-height: 80px;
-  }
-  
-  .scroll-wrapper {
-    position: relative;
-    height: 200vh; /* gives scroll space */
-  }
-  * {
-    cursor: none;
-  }
+  background: #fafafa;
+  color: #0a0a0a;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode {
+  background: #050505;
+  color: #e8e8e8;
+}
+
+/* Animated Background */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  animation: float 20s infinite ease-in-out;
+}
+
+body.dark-mode .gradient-orb {
+  opacity: 0.08;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  top: -10%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  top: 40%;
+  right: -5%;
+  animation-delay: 7s;
+}
+
+.orb-3 {
+  width: 450px;
+  height: 450px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  bottom: -10%;
+  left: 30%;
+  animation-delay: 14s;
+}
+
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+}
+
+body.dark-mode .grid-overlay {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+:root {
+  --nav-height: 80px;
+}
+
+.scroll-wrapper {
+  position: relative;
+  height: 200vh;
+  /* gives scroll space */
+}
+
+* {
+  cursor: none;
+}
+
+html,
+body {
+  scroll-behavior: auto;
+  /* let Lenis handle it */
+}
