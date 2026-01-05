@@ -84,6 +84,7 @@
     background: linear-gradient(270deg, #93c5fd, #ffffff, #60a5fa, #93c5fd);
     background-size: 300% 300%;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientFlow 6s ease infinite;
     filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.6));
@@ -117,17 +118,6 @@
     /* Highlights if any */
 }
 
-.contact-description {
-    font-size: 1.25rem;
-    color: #e4e4e7;
-    max-width: 750px;
-    margin: 0 auto;
-    line-height: 1.7;
-    font-weight: 400;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-    opacity: 0.85;
-}
-
 /* FOOTER SECTION - Glassmorphic & Premium */
 .contact-footer {
     width: 100%;
@@ -139,6 +129,8 @@
     grid-template-columns: 1fr 2fr 1fr;
     align-items: flex-end;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 20;
 }
 
 .footer-left {
@@ -173,6 +165,7 @@
     /* Subtle gradient overlay on name */
     background: linear-gradient(180deg, #fff 20%, #94a3b8 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -180,6 +173,8 @@
     display: flex;
     justify-content: center;
     gap: 40px;
+    position: relative;
+    z-index: 30;
 }
 
 .social-icon {
@@ -192,6 +187,10 @@
     padding: 12px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.03);
+    position: relative;
+    z-index: 30;
+    cursor: pointer;
+    /* Ensure browser knows it's clickable */
 }
 
 .social-icon:hover {
@@ -224,6 +223,9 @@
     text-decoration: none;
     transition: color 0.2s;
     letter-spacing: 0.05em;
+    position: relative;
+    z-index: 30;
+    cursor: pointer;
 }
 
 .footer-email:hover {
@@ -267,4 +269,17 @@
     .footer-right {
         gap: 20px;
     }
+}
+
+#phone-link::after {
+    content: "+91 76667 09264";
+    position: absolute;
+    bottom: -35px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.75rem;
+}
+
+#phone-link:hover::after {
+    opacity: 1;
 }
