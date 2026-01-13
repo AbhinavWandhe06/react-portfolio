@@ -1,243 +1,483 @@
 /* ============================================================
    1. CORE HERO LAYOUT
    ============================================================ */
-   .hero {
-    position: relative;
-    min-height: 100vh;
-    width: 100%;
-    padding: 80px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* overflow-x hidden is vital to prevent parallax from creating a horizontal scrollbar */
-    overflow-x: hidden; 
-    background-color: transparent;
-    box-sizing: border-box;
-  }
-  
-  /* ============================================================
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* overflow-x hidden is vital to prevent parallax from creating a horizontal scrollbar */
+  overflow-x: hidden;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+/* ============================================================
      2. TYPOGRAPHY & GRADIENTS
      ============================================================ */
-  .hero-text {
-    font-size: 9.8vw;
-    font-weight: 900;
-    line-height: 0.9;
-    text-align: center;
-    width: 100%;
-    margin: 0;
-    z-index: 5;
-    will-change: transform; /* Performance optimization for parallax */
+.hero-text {
+  font-size: 9.8vw;
+  font-weight: 900;
+  line-height: 0.9;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  z-index: 5;
+  will-change: transform;
+  /* Performance optimization for parallax */
+}
+
+.hero-text.top {
+  margin-bottom: 2rem;
+}
+
+.hero-text.bottom {
+  margin-top: 2rem;
+}
+
+.bebas {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  .hero-text.top {
-    margin-bottom: 2rem;
+
+  50% {
+    background-position: 100% 50%;
   }
-  
-  .hero-text.bottom {
-    margin-top: 2rem;
+
+  100% {
+    background-position: 0% 50%;
   }
-  
-  .bebas {
-    font-family: "Bebas Neue", sans-serif;
-    letter-spacing: 0.5px;
-  }
-  
-  .text-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
-  }
-  
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  /* ============================================================
+}
+
+/* ============================================================
      3. MEDIA SECTION (STACK & SLIDER)
      ============================================================ */
-  .photos-wrapper {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 450px;
-    width: 100%;
-  }
-  
-  /* Static Stack Styles */
-  .photo-stack {
-    position: relative;
-    width: 250px;
-    height: 380px;
-  }
-  
-  .photo {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: white;
-    padding: 8px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-    object-fit: cover;
-    border: 1px solid rgba(0,0,0,0.05);
-  }
-  
-  .p1 { transform: rotate(-6deg) translate(-20px, 10px); z-index: 1; }
-  .p2 { transform: rotate(3deg) translate(20px, -10px); z-index: 2; }
-  .p3 { transform: rotate(-1deg); z-index: 3; }
-  
-  /* Dynamic Slider Styles */
-  .photo-slider {
-    position: relative;
-    width: 280px;
-    height: 420px;
-  }
-  
-  .slider-card {
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    background: white;
-    overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
-  }
-  
-  .slider-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .slider-0 { transform: rotate(0deg) scale(1); z-index: 3; opacity: 1; }
-  .slider-1 { transform: rotate(4deg) translate(20px, -15px) scale(0.95); z-index: 2; opacity: 0.6; }
-  .slider-2 { transform: rotate(-4deg) translate(-20px, 15px) scale(0.9); z-index: 1; opacity: 0.4; }
-  
-  /* ============================================================
+.photos-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px;
+  width: 100%;
+}
+
+/* Static Stack Styles */
+.photo-stack {
+  position: relative;
+  width: 250px;
+  height: 380px;
+}
+
+.photo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: white;
+  padding: 8px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.p1 {
+  transform: rotate(-6deg) translate(-20px, 10px);
+  z-index: 1;
+}
+
+.p2 {
+  transform: rotate(3deg) translate(20px, -10px);
+  z-index: 2;
+}
+
+.p3 {
+  transform: rotate(-1deg);
+  z-index: 3;
+}
+
+/* Dynamic Slider Styles */
+.photo-slider {
+  position: relative;
+  width: 280px;
+  height: 420px;
+}
+
+.slider-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.slider-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-0 {
+  transform: rotate(0deg) scale(1);
+  z-index: 3;
+  opacity: 1;
+}
+
+.slider-1 {
+  transform: rotate(4deg) translate(20px, -15px) scale(0.95);
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.slider-2 {
+  transform: rotate(-4deg) translate(-20px, 15px) scale(0.9);
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* ============================================================
      4. INFO CARDS
      ============================================================ */
-  .info-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 24px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    width: 320px;
-    z-index: 10;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .info-card:hover {
-    box-shadow: 0 15px 40px rgba(118, 75, 162, 0.2);
-  }
-  
-  .hero-left { 
-    position: absolute; 
-    left: 5%; 
-    bottom: 10%; 
-  }
-  
-  .hero-right { 
-    position: absolute; 
-    right: 5%; 
-    bottom: 10%; 
-  }
-  
-  .info-badge {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-  
-  .info-highlight {
-    font-weight: 800;
-    margin: 5px 0;
-    color: #4b6cb7;
-  }
-  
-  .tech-stack {
-    font-size: 0.85rem;
-    opacity: 0.8;
-    letter-spacing: 1px;
-  }
-  
-  /* ============================================================
+.info-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  width: 320px;
+  z-index: 10;
+  transition: box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+  box-shadow: 0 15px 40px rgba(118, 75, 162, 0.2);
+}
+
+.hero-left {
+  position: absolute;
+  left: 5%;
+  bottom: 10%;
+}
+
+.hero-right {
+  position: absolute;
+  right: 5%;
+  bottom: 10%;
+}
+
+.info-badge {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.info-highlight {
+  font-weight: 800;
+  margin: 5px 0;
+  color: #4b6cb7;
+}
+
+.tech-stack {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
      5. CODE PET & ANIMATIONS
      ============================================================ */
-  .code-pet {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 15px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(0,0,0,0.08);
+.code-pet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.pet-ascii {
+  color: #10b981;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.dots::after {
+  content: '';
+  animation: dots-anim 1.5s infinite;
+}
+
+@keyframes dots-anim {
+  0% {
+    content: '';
   }
-  
-  .pet-ascii { 
-    color: #10b981; 
-    font-family: monospace;
-    font-weight: bold;
+
+  33% {
+    content: '.';
   }
-  
-  .dots::after { 
-    content: ''; 
-    animation: dots-anim 1.5s infinite; 
+
+  66% {
+    content: '..';
   }
-  
-  @keyframes dots-anim {
-    0% { content: ''; }
-    33% { content: '.'; }
-    66% { content: '..'; }
-    100% { content: '...'; }
+
+  100% {
+    content: '...';
   }
-  
-  /* ============================================================
+}
+
+/* ============================================================
      6. RESPONSIVE DESIGN (CRITICAL FIXES)
      ============================================================ */
-  @media (max-width: 1024px) {
-    /* Disable absolute positioning and parallax movement for mobile/tablet */
-    .hero-left, .hero-right {
-      position: relative !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      margin: 20px auto !important;
-      width: 90% !important;
-      max-width: 350px;
-      /* !important is used to override Framer Motion's inline styles on mobile */
-      transform: none !important; 
-      opacity: 1 !important;
-    }
-    
-    .hero-text {
-      font-size: 12vw;
-      transform: none !important;
-    }
-  
-    .photos-wrapper {
-      min-height: auto;
-      margin: 40px 0;
-      transform: none !important;
-    }
+/* Tablet Landscape */
+@media (max-width: 1280px) and (min-width: 1025px) {
+  .hero {
+    padding: 100px 20px 60px;
   }
-  
-  @media (max-width: 480px) {
-    .hero-text {
-      font-size: 15vw;
-    }
-    
-    .photo-stack, .photo-slider {
-      width: 220px;
-      height: 320px;
-    }
+
+  .hero-text {
+    font-size: 10vw;
   }
+
+  .info-card {
+    width: 300px;
+    padding: 22px;
+  }
+
+  .hero-left {
+    left: 4%;
+    bottom: 8%;
+  }
+
+  .hero-right {
+    right: 4%;
+    bottom: 8%;
+  }
+}
+
+/* Tablet Portrait & Small Laptop */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .hero {
+    padding: 80px 20px 50px;
+  }
+
+  /* Disable absolute positioning and parallax movement for tablet */
+  .hero-left,
+  .hero-right {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 24px auto !important;
+    width: 90% !important;
+    max-width: 380px;
+    /* !important is used to override Framer Motion's inline styles */
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-text {
+    font-size: 11vw;
+    transform: none !important;
+  }
+
+  .photos-wrapper {
+    min-height: auto;
+    margin: 40px 0;
+    transform: none !important;
+  }
+
+  .photo-stack,
+  .photo-slider {
+    width: 260px;
+    height: 400px;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) and (min-width: 641px) {
+  .hero {
+    padding: 70px 16px 40px;
+  }
+
+  .hero-left,
+  .hero-right {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 20px auto !important;
+    width: 92% !important;
+    max-width: 360px;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-text {
+    font-size: 12vw;
+    transform: none !important;
+  }
+
+  .photos-wrapper {
+    min-height: auto;
+    margin: 36px 0;
+    transform: none !important;
+  }
+
+  .photo-stack,
+  .photo-slider {
+    width: 240px;
+    height: 360px;
+  }
+
+  .info-card {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 640px) and (min-width: 481px) {
+  .hero {
+    padding: 60px 16px 32px;
+  }
+
+  .hero-left,
+  .hero-right {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 18px auto !important;
+    width: 94% !important;
+    max-width: 340px;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-text {
+    font-size: 13vw;
+    transform: none !important;
+  }
+
+  .photos-wrapper {
+    min-height: auto;
+    margin: 32px 0;
+    transform: none !important;
+  }
+
+  .photo-stack,
+  .photo-slider {
+    width: 220px;
+    height: 330px;
+  }
+
+  .info-card {
+    padding: 18px;
+  }
+
+  .info-badge {
+    font-size: 1.8rem;
+  }
+
+  .info-highlight {
+    font-size: 0.95rem;
+  }
+
+  .tech-stack {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hero {
+    padding: 50px 12px 28px;
+  }
+
+  .hero-text {
+    font-size: 15vw;
+    transform: none !important;
+  }
+
+  .photos-wrapper {
+    margin: 28px 0;
+    transform: none !important;
+  }
+
+  .photo-stack,
+  .photo-slider {
+    width: 200px;
+    height: 300px;
+  }
+
+  .hero-left,
+  .hero-right {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 16px auto !important;
+    width: 95% !important;
+    max-width: 320px;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .info-card {
+    padding: 16px;
+  }
+
+  .info-badge {
+    font-size: 1.6rem;
+  }
+
+  .info-highlight {
+    font-size: 0.9rem;
+  }
+
+  .tech-stack {
+    font-size: 0.75rem;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+  .hero {
+    padding: 40px 10px 24px;
+  }
+
+  .hero-text {
+    font-size: 16vw;
+  }
+
+  .photo-stack,
+  .photo-slider {
+    width: 180px;
+    height: 270px;
+  }
+
+  .info-card {
+    padding: 14px;
+  }
+}
