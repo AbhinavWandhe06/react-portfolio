@@ -1157,10 +1157,38 @@
 @media (max-width: 768px) and (min-width: 641px) {
   .expertise-section {
     padding: 36px 5vw;
+    min-height: auto;
   }
 
   .expertise-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
     gap: 24px;
+    max-height: none;
+  }
+
+  .expertise-header {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .code-window {
+    grid-column: 1;
+    grid-row: 2;
+    position: relative;
+    top: 0;
+    height: 480px;
+    max-height: 480px;
+    border-radius: 20px;
+  }
+
+  .expertise-cards {
+    grid-column: 1;
+    grid-row: 3;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
   }
 
   .tag-wrapper {
@@ -1175,12 +1203,8 @@
 
   .header-desc {
     font-size: 15px;
-  }
-
-  .code-window {
-    height: 480px;
-    max-height: 480px;
-    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .code-header {
@@ -1214,11 +1238,6 @@
 
   .lottie-padding {
     padding-bottom: 140px;
-  }
-
-  .expertise-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
   }
 
   .expertise-card {
@@ -1257,16 +1276,49 @@
     width: 7px;
     height: 7px;
   }
+
+  .bg-shape {
+    filter: blur(70px);
+    opacity: 0.1;
+  }
 }
 
 /* Mobile Portrait (480px - 640px) */
 @media (max-width: 640px) and (min-width: 481px) {
   .expertise-section {
     padding: 28px 4vw;
+    min-height: auto;
   }
 
   .expertise-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
     gap: 20px;
+    max-height: none;
+  }
+
+  .expertise-header {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .code-window {
+    grid-column: 1;
+    grid-row: 2;
+    position: relative;
+    top: 0;
+    height: 400px;
+    max-height: 400px;
+    border-radius: 18px;
+  }
+
+  .expertise-cards {
+    grid-column: 1;
+    grid-row: 3;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .tag-wrapper {
@@ -1288,12 +1340,8 @@
   .header-desc {
     font-size: 14px;
     line-height: 1.5;
-  }
-
-  .code-window {
-    height: 420px;
-    max-height: 420px;
-    border-radius: 18px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .code-header {
@@ -1331,11 +1379,11 @@
   .code-body {
     font-size: 12px;
     line-height: 1.6;
-    padding: 18px 20px;
+    padding: 16px 18px;
   }
 
   .line-numbers {
-    padding: 18px 14px;
+    padding: 16px 12px;
     gap: 4px;
   }
 
@@ -1355,54 +1403,48 @@
 
   .code-pet.fixed {
     width: 35vw;
-    max-width: 200px;
+    max-width: 180px;
     min-width: 120px;
     right: 4vw;
     bottom: 4vh;
   }
 
   .lottie-padding {
-    padding-bottom: 120px;
+    padding-bottom: 110px;
   }
 
   .pet-status {
     font-size: 10px;
   }
 
-  /* Single column for cards on mobile */
-  .expertise-cards {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
   .expertise-card {
-    height: 320px;
-    border-radius: 24px;
+    height: 300px;
+    border-radius: 22px;
   }
 
   .content {
-    padding: 24px;
+    padding: 22px;
     gap: 10px;
   }
 
   .icon-bg {
-    width: 50px;
-    height: 50px;
-    border-radius: 15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
   }
 
   .icon-bg svg {
-    width: 26px;
-    height: 26px;
+    width: 25px;
+    height: 25px;
   }
 
   .card-title {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.2;
   }
 
   .card-desc {
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 1.5;
   }
 
@@ -1411,7 +1453,7 @@
   }
 
   .card-list {
-    gap: 8px;
+    gap: 7px;
   }
 
   .card-item {
@@ -1454,6 +1496,37 @@
 @media (max-width: 480px) and (min-width: 361px) {
   .expertise-section {
     padding: 24px 4vw;
+    min-height: auto;
+  }
+
+  .expertise-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 18px;
+    max-height: none;
+  }
+
+  .expertise-header {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .code-window {
+    grid-column: 1;
+    grid-row: 2;
+    position: relative;
+    top: 0;
+    height: 360px;
+    max-height: 360px;
+  }
+
+  .expertise-cards {
+    grid-column: 1;
+    grid-row: 3;
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .gradient-title {
@@ -1462,11 +1535,8 @@
 
   .header-desc {
     font-size: 13px;
-  }
-
-  .code-window {
-    height: 380px;
-    max-height: 380px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .code-body {
@@ -1522,6 +1592,37 @@
 @media (max-width: 360px) {
   .expertise-section {
     padding: 16px 3vw;
+    min-height: auto;
+  }
+
+  .expertise-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+    max-height: none;
+  }
+
+  .expertise-header {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .code-window {
+    grid-column: 1;
+    grid-row: 2;
+    position: relative;
+    top: 0;
+    height: 300px;
+    max-height: 300px;
+  }
+
+  .expertise-cards {
+    grid-column: 1;
+    grid-row: 3;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .tag-wrapper {
@@ -1535,11 +1636,8 @@
 
   .header-desc {
     font-size: 12px;
-  }
-
-  .code-window {
-    height: 320px;
-    max-height: 320px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .code-header {
